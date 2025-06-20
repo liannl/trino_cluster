@@ -14,7 +14,7 @@ services:
   trino-worker:
     image: 'trinodb/trino:359'
     volumes:
-      - ./etc/worker-1:/tmp/trino-config
+      - ./etc/worker:/tmp/trino-config
       - ./trino-entrypoint.sh:/trino-entrypoint.sh
       - ./etc/catalog:/tmp/trino-catalog
     networks:
@@ -25,4 +25,3 @@ services:
 networks:
   trino-network:
     driver: bridge 
-    
