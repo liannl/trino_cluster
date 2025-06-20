@@ -1,0 +1,28 @@
+services:
+  trino-coordinator:
+    image: 'trinodb/trino:359'
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./etc/coordinator:/tmp/trino-config
+      - ./trino-entrypoint.sh:/trino-entrypoint.sh
+      - ./etc/catalog:/tmp/trino-catalog
+    networks:
+      - trino-network
+    entrypoint: ["/bin/bash", "/trino-entrypoint.sh"]
+
+  trino-worker:
+    image: 'trinodb/trino:359'
+    volumes:
+      - ./etc/worker-1:/tmp/trino-config
+      - ./trino-entrypoint.sh:/trino-entrypoint.sh
+      - ./etc/catalog:/tmp/trino-catalog
+    networks:
+      - trino-network
+    entrypoint: ["/bin/bash", "/trino-entrypoint.sh"]
+
+
+networks:
+  trino-network:
+    driver: bridge 
+    
